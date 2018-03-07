@@ -1,0 +1,203 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.deer.mapper.shiro.UserMapper">
+    <resultMap id="BaseResultMap" type="com.deer.model.User">
+    <id column="id" jdbcType="BIGINT" property="id" />
+    <result column="account" jdbcType="VARCHAR" property="account" />
+    <result column="password" jdbcType="VARCHAR" property="password" />
+    <result column="name" jdbcType="VARCHAR" property="name" />
+    <result column="description" jdbcType="VARCHAR" property="description" />
+    <result column="deleted" jdbcType="INTEGER" property="deleted" />
+    <result column="update_by" jdbcType="BIGINT" property="updateBy" />
+    <result column="update_date" jdbcType="TIMESTAMP" property="updateDate" />
+    <result column="create_by" jdbcType="BIGINT" property="createBy" />
+    <result column="create_date" jdbcType="TIMESTAMP" property="createDate" />
+    
+    <collection property="listRole" column="role_id" ofType="com.deer.model.Role">
+        <id column="role_id" jdbcType="BIGINT" property="id"></id>
+        <result column="role_name" jdbcType="VARCHAR" property="name"></result>
+        <collection property="listPermission" column="perm_id" ofType="com.deer.model.Permission">
+            <id column="perm_id" jdbcType="BIGINT" property="id"></id>
+            <result column="perm_resource_id" jdbcType="BIGINT" property="resourceId"></result>
+            <result column="perm_operation_id" jdbcType="BIGINT" property="operationId"></result>
+
+            <association property="resource" column="resource_id" javaType="com.deer.model.Resource">
+                <id column="resource_id" jdbcType="BIGINT" property="id"></id>
+                <result column="resource_code" jdbcType="VARCHAR" property="code"></result>
+            </association>
+            <association property="operation" column="operation_id" javaType="com.deer.model.Operation">
+                <id column="operation_id" jdbcType="BIGINT" property="id"></id>
+                <result column="operation_code" jdbcType="VARCHAR" property="code"></result>
+            </association>
+        </collection>
+    </collection>
+
+    </resultMap>
+    <sql id="Base_Column_List">
+        id, account, password, name, description, deleted, update_by, update_date, create_by,
+        create_date
+    </sql>
+    <sql id="Base_Column_List_Alias">
+        u.id, u.account, u.password, u.name, u.description, u.deleted, u.update_by, u.update_date, u.create_by,
+        u.create_date
+    </sql>
+    <sql id="Base_Select_Where_List">
+        where deleted = 0
+        <if test="account != null">
+            AND account = #{account}
+        </if>
+
+    </sql>
+    <select id="selectAll" resultMap="BaseResultMap">
+    select <include refid="Base_Column_List"/> from sys_t_user
+    </select>
+    <select id="selectByEntity" parameterType="com.deer.model.User" resultMap="BaseResultMap">
+        select <include refid="Base_Column_List_Alias"/>,
+        r.id as role_id, r.name as role_name, p.id as perm_id, p.resource_id as perm_resource_id, p.operation_id as perm_operation_id,
+        o.code as operation_code, rs.code as resource_code
+        from sys_t_user u
+        INNER JOIN sys_user_role ur ON ur.user_id = u.id
+        INNER JOIN sys_t_role r ON r.id = ur.role_id
+        INNER JOIN sys_role_permission rp ON rp.role_id = ur.id
+        INNER JOIN sys_t_permission p ON rp.permission_id = p.id
+        INNER JOIN sys_t_operation o ON p.operation_id = o.id
+        INNER JOIN sys_t_resource rs ON rs.id = p.resource_id
+        where u.deleted = 0
+        <if test="account != null">
+            AND u.account = #{account}
+        </if>
+    </select>
+    <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List" />
+        from sys_t_user
+        where id = #{id,jdbcType=BIGINT}
+    </select>
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+        delete from sys_t_user
+        where id = #{id,jdbcType=BIGINT}
+    </delete>
+    <insert id="insert" parameterType="com.deer.model.User">
+        insert into sys_t_user (id, account, password,
+          name, description, deleted,
+          update_by, update_date, create_by,
+          create_date)
+        values (#{id,jdbcType=BIGINT}, #{account,jdbcType=VARCHAR}, #{password,jdbcType=VARCHAR},
+          #{name,jdbcType=VARCHAR}, #{description,jdbcType=VARCHAR}, #{deleted,jdbcType=INTEGER},
+          #{updateBy,jdbcType=BIGINT}, #{updateDate,jdbcType=TIMESTAMP}, #{createBy,jdbcType=BIGINT},
+          #{createDate,jdbcType=TIMESTAMP})
+    </insert>
+    <insert id="insertSelective" parameterType="com.deer.model.User">
+      insert into sys_t_user
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+          <if test="id != null">
+            id,
+          </if>
+          <if test="account != null">
+            account,
+          </if>
+          <if test="password != null">
+            password,
+          </if>
+          <if test="name != null">
+            name,
+          </if>
+          <if test="description != null">
+            description,
+          </if>
+          <if test="deleted != null">
+            deleted,
+          </if>
+          <if test="updateBy != null">
+            update_by,
+          </if>
+          <if test="updateDate != null">
+            update_date,
+          </if>
+          <if test="createBy != null">
+            create_by,
+          </if>
+          <if test="createDate != null">
+            create_date,
+          </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+          <if test="id != null">
+            #{id,jdbcType=BIGINT},
+          </if>
+          <if test="account != null">
+            #{account,jdbcType=VARCHAR},
+          </if>
+          <if test="password != null">
+            #{password,jdbcType=VARCHAR},
+          </if>
+          <if test="name != null">
+            #{name,jdbcType=VARCHAR},
+          </if>
+          <if test="description != null">
+            #{description,jdbcType=VARCHAR},
+          </if>
+          <if test="deleted != null">
+            #{deleted,jdbcType=INTEGER},
+          </if>
+          <if test="updateBy != null">
+            #{updateBy,jdbcType=BIGINT},
+          </if>
+          <if test="updateDate != null">
+            #{updateDate,jdbcType=TIMESTAMP},
+          </if>
+          <if test="createBy != null">
+            #{createBy,jdbcType=BIGINT},
+          </if>
+          <if test="createDate != null">
+            #{createDate,jdbcType=TIMESTAMP},
+          </if>
+        </trim>
+    </insert>
+    <update id="updateByPrimaryKeySelective" parameterType="com.deer.model.User">
+        update sys_t_user
+        <set>
+          <if test="account != null">
+            account = #{account,jdbcType=VARCHAR},
+          </if>
+          <if test="password != null">
+            password = #{password,jdbcType=VARCHAR},
+          </if>
+          <if test="name != null">
+            name = #{name,jdbcType=VARCHAR},
+          </if>
+          <if test="description != null">
+            description = #{description,jdbcType=VARCHAR},
+          </if>
+          <if test="deleted != null">
+            deleted = #{deleted,jdbcType=INTEGER},
+          </if>
+          <if test="updateBy != null">
+            update_by = #{updateBy,jdbcType=BIGINT},
+          </if>
+          <if test="updateDate != null">
+            update_date = #{updateDate,jdbcType=TIMESTAMP},
+          </if>
+          <if test="createBy != null">
+            create_by = #{createBy,jdbcType=BIGINT},
+          </if>
+          <if test="createDate != null">
+            create_date = #{createDate,jdbcType=TIMESTAMP},
+          </if>
+        </set>
+        where id = #{id,jdbcType=BIGINT}
+    </update>
+    <update id="updateByPrimaryKey" parameterType="com.deer.model.User">
+        update sys_t_user
+            set account = #{account,jdbcType=VARCHAR},
+            password = #{password,jdbcType=VARCHAR},
+            name = #{name,jdbcType=VARCHAR},
+            description = #{description,jdbcType=VARCHAR},
+            deleted = #{deleted,jdbcType=INTEGER},
+            update_by = #{updateBy,jdbcType=BIGINT},
+            update_date = #{updateDate,jdbcType=TIMESTAMP},
+            create_by = #{createBy,jdbcType=BIGINT},
+            create_date = #{createDate,jdbcType=TIMESTAMP}
+        where id = #{id,jdbcType=BIGINT}
+    </update>
+</mapper>

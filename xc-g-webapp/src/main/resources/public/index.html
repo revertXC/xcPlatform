@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Index</title>
+</head>
+<body>
+    <h1>Hello World</h1>
+    <button onclick="btn1()">无权限ajax请求</button>
+    <button onclick="btn2()">增加ajax请求</button>
+    <script src="statics/jquery/jquery-3.3.1.min.js" type="text/javascript" ></script>
+    <script>
+        function btn1(){
+            $.ajax({
+                url:"v1/login/aaaa",
+                success:function(res){
+                    alert(res);
+                },
+                error:function(res){
+                    alert(res.responseJSON.message+"错误");
+                }
+            })
+        }
+        function btn2(){
+            $.ajax({
+                url:"v1/login/bbbb",
+                success:function(res){
+                    alert(res);
+                },
+                error:function(res){
+                    alert(res.message+"错误")
+                }
+            })
+        }
+    </script>
+</body>
+</html>

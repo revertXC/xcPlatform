@@ -1,0 +1,35 @@
+***** 平台更新内容 *****
+
+---2018-02-19 17:08
+   Maven 模块化
+        xc-combination      所有插件模块引入层
+            xc-shiro            --Shiro 权限框架
+        xc-common           公共层
+        xc-controller       控制层
+        xc-dao              数据库连接层
+        xc-model            实体类层
+        xc-service          业务逻辑层
+        xc-webapp           war包 启动层
+
+----2018-02-20 13:44
+    Mybatis 嵌入
+        xc-dao 模块中嵌入 generate 自动生成 增、删、改、查 工具
+
+----2018-02-20 14:03
+    logback 嵌入
+        增加日志打印记录
+
+----2018-02-21 21:56
+     thymeleaf 嵌入
+
+----2018-02-22 21:45
+      shiro 嵌入  thymeleaf 替换成freemarker
+
+----2018-02-28 16:24
+       加入Lombok.jar 位置：xc-model 里面
+       idea 配置： http://blog.csdn.net/zhglance/article/details/54931430 需要下载Lombok插件
+       file 》》 setting 》》 buil,Execution,Deployment 》》 compiler 》》 打钩 Enable annotation processing  开启这个
+       然后重启Idea.
+
+       lombok 部分功能使用：  https://www.jianshu.com/p/2ea9ff98f7d6
+

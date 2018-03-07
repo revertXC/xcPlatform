@@ -1,0 +1,142 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.deer.mapper.shiro.PermissionMapper">
+  <resultMap id="BaseResultMap" type="com.deer.model.Permission">
+    <id column="id" jdbcType="BIGINT" property="id" />
+    <result column="resource_id" jdbcType="BIGINT" property="resourceId" />
+    <result column="operation_id" jdbcType="BIGINT" property="operationId" />
+    <result column="description" jdbcType="VARCHAR" property="description" />
+    <result column="deleted" jdbcType="INTEGER" property="deleted" />
+    <result column="update_by" jdbcType="BIGINT" property="updateBy" />
+    <result column="update_date" jdbcType="TIMESTAMP" property="updateDate" />
+    <result column="create_by" jdbcType="BIGINT" property="createBy" />
+    <result column="create_date" jdbcType="TIMESTAMP" property="createDate" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, resource_id, operation_id, description, deleted, update_by, update_date, create_by, 
+    create_date
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from sys_t_permission
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from sys_t_permission
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="com.deer.model.Permission">
+    insert into sys_t_permission (id, resource_id, operation_id, 
+      description, deleted, update_by, 
+      update_date, create_by, create_date
+      )
+    values (#{id,jdbcType=BIGINT}, #{resourceId,jdbcType=BIGINT}, #{operationId,jdbcType=BIGINT}, 
+      #{description,jdbcType=VARCHAR}, #{deleted,jdbcType=INTEGER}, #{updateBy,jdbcType=BIGINT}, 
+      #{updateDate,jdbcType=TIMESTAMP}, #{createBy,jdbcType=BIGINT}, #{createDate,jdbcType=TIMESTAMP}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.deer.model.Permission">
+    insert into sys_t_permission
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="resourceId != null">
+        resource_id,
+      </if>
+      <if test="operationId != null">
+        operation_id,
+      </if>
+      <if test="description != null">
+        description,
+      </if>
+      <if test="deleted != null">
+        deleted,
+      </if>
+      <if test="updateBy != null">
+        update_by,
+      </if>
+      <if test="updateDate != null">
+        update_date,
+      </if>
+      <if test="createBy != null">
+        create_by,
+      </if>
+      <if test="createDate != null">
+        create_date,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=BIGINT},
+      </if>
+      <if test="resourceId != null">
+        #{resourceId,jdbcType=BIGINT},
+      </if>
+      <if test="operationId != null">
+        #{operationId,jdbcType=BIGINT},
+      </if>
+      <if test="description != null">
+        #{description,jdbcType=VARCHAR},
+      </if>
+      <if test="deleted != null">
+        #{deleted,jdbcType=INTEGER},
+      </if>
+      <if test="updateBy != null">
+        #{updateBy,jdbcType=BIGINT},
+      </if>
+      <if test="updateDate != null">
+        #{updateDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createBy != null">
+        #{createBy,jdbcType=BIGINT},
+      </if>
+      <if test="createDate != null">
+        #{createDate,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.deer.model.Permission">
+    update sys_t_permission
+    <set>
+      <if test="resourceId != null">
+        resource_id = #{resourceId,jdbcType=BIGINT},
+      </if>
+      <if test="operationId != null">
+        operation_id = #{operationId,jdbcType=BIGINT},
+      </if>
+      <if test="description != null">
+        description = #{description,jdbcType=VARCHAR},
+      </if>
+      <if test="deleted != null">
+        deleted = #{deleted,jdbcType=INTEGER},
+      </if>
+      <if test="updateBy != null">
+        update_by = #{updateBy,jdbcType=BIGINT},
+      </if>
+      <if test="updateDate != null">
+        update_date = #{updateDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createBy != null">
+        create_by = #{createBy,jdbcType=BIGINT},
+      </if>
+      <if test="createDate != null">
+        create_date = #{createDate,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.deer.model.Permission">
+    update sys_t_permission
+    set resource_id = #{resourceId,jdbcType=BIGINT},
+      operation_id = #{operationId,jdbcType=BIGINT},
+      description = #{description,jdbcType=VARCHAR},
+      deleted = #{deleted,jdbcType=INTEGER},
+      update_by = #{updateBy,jdbcType=BIGINT},
+      update_date = #{updateDate,jdbcType=TIMESTAMP},
+      create_by = #{createBy,jdbcType=BIGINT},
+      create_date = #{createDate,jdbcType=TIMESTAMP}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+</mapper>

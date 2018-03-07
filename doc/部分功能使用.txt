@@ -1,0 +1,7 @@
+devtools 使用：
+    1、Ctrl+Shift+a 出现搜索框
+    2、输入 Registry
+    3、打钩 complier.automake.allow.when.app.running
+    4、然后点击 Close
+
+    5、File 》》 settings  》》 Bulid,Execution,Deployment  》》 打钩 build project automatically

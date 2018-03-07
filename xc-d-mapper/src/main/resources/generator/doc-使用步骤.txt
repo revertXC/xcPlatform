@@ -1,0 +1,6 @@
+增加Maven 指令
+
+working directory : 指定到xc-mapper
+command line : mybatis-generator:generate
+
+然后保存，然后在执行
