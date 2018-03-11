@@ -31,7 +31,6 @@
             <properties>
                 <profileActive>dev</profileActive>
             </properties>
-
         </profile>
         <profile>
             <id>pro</id>
@@ -40,5 +39,4 @@
             </properties>
         </profile>
     </profiles>
-
 </project>

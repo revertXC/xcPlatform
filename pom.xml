@@ -12,9 +12,9 @@
         <module>xc-d-mapper</module>
         <module>xc-e-service</module>
         <module>xc-f-controller</module>
-        <module>xc-g-webapp</module>
         <module>xc-z-shiro</module>
         <module>xc-z-activiti5</module>
+        <module>xc-webapp</module>
     </modules>
 
     <name>platform Maven Webapp</name>
