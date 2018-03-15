@@ -15,6 +15,7 @@
         <module>xc-z-shiro</module>
         <module>xc-z-activiti5</module>
         <module>xc-webapp</module>
+        <module>xc-z-quzrtz</module>
     </modules>
 
     <name>platform Maven Webapp</name>
@@ -42,6 +43,7 @@
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-devtools</artifactId>
+            <optional>true</optional>
         </dependency>
 
         <dependency>
